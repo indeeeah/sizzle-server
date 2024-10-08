@@ -1,50 +1,70 @@
 package com.sizzle.server.domains.users.entities;
 
+import java.time.LocalDateTime;
+import java.util.UUID;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicUpdate;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.sizzle.server.domains.users.enums.SocialType;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Index;
 import jakarta.persistence.Table;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
 @Entity
-@Table(name = "USERS")
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@DynamicUpdate
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(name = "USERS", indexes = { @Index(name = "idx_name", columnList = "name"),
+		@Index(name = "idx_email", columnList = "email") })
 public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
-    private String email;
 
-    // Constructors, getters, and setters
-    public User() {
-    }
+	@Id
+	@GeneratedValue(strategy = GenerationType.UUID)
+	@Column(name = "id")
+	UUID id;
 
-    public User(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
+	@Column(name = "name", nullable = false)
+	String name;
 
-    public Long getId() {
-        return id;
-    }
+	@Column(name = "email", nullable = false)
+	String email;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@Column(name = "password", nullable = false)
+	String password;
 
-    public String getName() {
-        return name;
-    }
+	@Column(name = "nickname", nullable = false)
+	String nickname;
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	@Enumerated(EnumType.STRING)
+	@Column(name = "social")
+	SocialType social;
 
-    public String getEmail() {
-        return email;
-    }
+	@Column(name = "deleted_at")
+	LocalDateTime deletedAt;
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+	@Column(name = "created_at", nullable = false, updatable = false)
+	@CreationTimestamp
+	LocalDateTime createdAt;
+
+	@Column(name = "updated_at")
+	@UpdateTimestamp
+	LocalDateTime updatedAt;
 }

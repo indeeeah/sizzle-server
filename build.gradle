@@ -37,7 +37,9 @@ dependencies {
 	implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.3.0'
 	implementation 'org.modelmapper:modelmapper:3.1.0'
 	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation 'com.google.code.findbugs:jsr305:3.0.2'
 
+	developmentOnly "org.springframework.boot:spring-boot-devtools"
 	runtimeOnly 'com.h2database:h2'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
@@ -47,15 +49,21 @@ dependencies {
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+	annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
 }
 
-tasks.withType(Checkstyle) {
-	reports {
-		xml.required = false
-		html.required = true
-	}
+tasks.named('checkstyleMain') {
+    dependsOn 'compileJava', 'compileTestJava'
+}
+
+tasks.named('checkstyleTest') {
+    dependsOn 'compileTestJava'
 }

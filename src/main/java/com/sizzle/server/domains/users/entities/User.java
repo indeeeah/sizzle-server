@@ -54,6 +54,9 @@ public class User {
 	@Column(name = "social")
 	SocialType social;
 
+	@Column(name = "deleted_at")
+	LocalDateTime deletedAt;
+
 	@Column(name = "created_at", nullable = false, updatable = false)
 	@CreationTimestamp
 	LocalDateTime createdAt;

@@ -1,11 +1,11 @@
 package com.sizzle.server.domains.users.dtos;
 
 import java.io.Serializable;
+import java.util.Optional;
 import java.util.UUID;
 
 import com.sizzle.server.domains.users.enums.SocialType;
 
-import io.micrometer.common.lang.Nullable;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
 import lombok.AccessLevel;
@@ -20,15 +20,21 @@ import lombok.experimental.FieldDefaults;
 @Schema(name = "userBaseDto")
 public class UserBaseDto implements Serializable {
 
+	@NotNull
 	String name;
 
+	@NotNull
 	String email;
 
+	@NotNull
 	String nickname;
 
-	@Nullable
+	Optional<String> introduce;
+
+	Optional<String> thumbnailPath;
+
 	@Schema(name = "social")
-	SocialType social;
+	Optional<SocialType> social;
 
 	@Data
 	@NoArgsConstructor

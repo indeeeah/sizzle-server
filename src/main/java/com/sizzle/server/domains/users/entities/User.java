@@ -53,6 +53,12 @@ public class User {
 	@Column(name = "nickname", nullable = false)
 	String nickname;
 
+	@Column(name = "thumbnail_path")
+	String thumbnailPath;
+
+	@Column(name = "introduce")
+	String introduce;
+
 	@Enumerated(EnumType.STRING)
 	@Column(name = "social")
 	SocialType social;

@@ -1,6 +1,7 @@
 package com.sizzle.server.domains.users.dtos;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 import com.sizzle.server.domains.users.enums.SocialType;
 
@@ -38,5 +39,16 @@ public class UserBaseDto implements Serializable {
 
 		@NotNull
 		String password;
+	}
+
+	@Data
+	@NoArgsConstructor
+	@EqualsAndHashCode(callSuper = true)
+	@FieldDefaults(level = AccessLevel.PRIVATE)
+	@Schema(name = "userGetType")
+	public static class Get extends UserBaseDto {
+
+		@NotNull
+		UUID id;
 	}
 }

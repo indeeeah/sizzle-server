@@ -1,9 +1,12 @@
 package com.sizzle.server.domains.users.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.sizzle.server.domains.users.dtos.UserBaseDto;
 import com.sizzle.server.domains.users.entities.User;
+import com.sizzle.server.domains.users.filter.UserFilter;
 import com.sizzle.server.domains.users.repositories.UsersRepository;
 import com.sizzle.server.exceptions.BadRequestException;
 import com.sizzle.server.utils.BCryptPassword;
@@ -22,9 +25,9 @@ public class UsersService {
 
 	private final ModelMapper mapper;
 
-	// public User findByEmail(String email) throws BadRequestException {
-	// return repo.findByEmail(email);
-	// }
+	public List<User> search(UserFilter filter) throws BadRequestException {
+		return repo.search(filter);
+	}
 
 	public User add(UserBaseDto.Post dto) throws BadRequestException {
 		String email = dto.getEmail();

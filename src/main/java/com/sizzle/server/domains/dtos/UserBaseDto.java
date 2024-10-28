@@ -1,7 +1,6 @@
 package com.sizzle.server.domains.dtos;
 
 import java.io.Serializable;
-import java.util.Optional;
 import java.util.UUID;
 
 import com.sizzle.server.domains.enums.SocialType;
@@ -20,41 +19,43 @@ import lombok.experimental.FieldDefaults;
 @Schema(name = "userBaseDto")
 public class UserBaseDto implements Serializable {
 
-	@NotNull
-	String name;
+    @NotNull
+    String name;
 
-	@NotNull
-	String email;
+    @NotNull
+    String email;
 
-	@NotNull
-	String nickname;
+    @NotNull
+    String nickname;
 
-	Optional<String> introduce;
+    @Schema(description = "introduce", nullable = true)
+    String introduce;
 
-	Optional<String> thumbnailPath;
+    @Schema(description = "thumbnail path", nullable = true)
+    String thumbnailPath;
 
-	@Schema(name = "social")
-	Optional<SocialType> social;
+    @Schema(description = "social type", nullable = true)
+    SocialType social;
 
-	@Data
-	@NoArgsConstructor
-	@EqualsAndHashCode(callSuper = true)
-	@FieldDefaults(level = AccessLevel.PRIVATE)
-	@Schema(name = "userPostType")
-	public static class Post extends UserBaseDto {
+    @Data
+    @NoArgsConstructor
+    @EqualsAndHashCode(callSuper = true)
+    @FieldDefaults(level = AccessLevel.PRIVATE)
+    @Schema(name = "userPostType")
+    public static class Post extends UserBaseDto {
 
-		@NotNull
-		String password;
-	}
+        @NotNull
+        String password;
+    }
 
-	@Data
-	@NoArgsConstructor
-	@EqualsAndHashCode(callSuper = true)
-	@FieldDefaults(level = AccessLevel.PRIVATE)
-	@Schema(name = "userGetType")
-	public static class Get extends UserBaseDto {
+    @Data
+    @NoArgsConstructor
+    @EqualsAndHashCode(callSuper = true)
+    @FieldDefaults(level = AccessLevel.PRIVATE)
+    @Schema(name = "userGetType")
+    public static class Get extends UserBaseDto {
 
-		@NotNull
-		UUID id;
-	}
+        @NotNull
+        UUID id;
+    }
 }

@@ -1,6 +1,7 @@
 package com.sizzle.server.domains.repositories;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
@@ -36,6 +37,15 @@ class UsersQueryDslRepositoryImpl extends QuerydslRepositorySupport implements
 		List<User> users = userQuery.fetch();
 
 		return users;
+	}
+
+	@Override
+	public User findById(UUID id) {
+		QUser entity = QUser.user;
+
+		User user = from(entity).where(entity.id.eq(id)).fetchOne();
+
+		return user;
 	}
 
 	@Override

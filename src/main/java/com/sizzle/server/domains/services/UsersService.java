@@ -22,7 +22,6 @@ import lombok.extern.slf4j.Slf4j;
 public class UsersService {
 
 	private final UsersRepository repo;
-
 	private final ModelMapper mapper;
 
 	public List<User> search(UserFilter filter) throws BadRequestException {

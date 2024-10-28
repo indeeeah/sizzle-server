@@ -30,30 +30,32 @@ import lombok.extern.slf4j.Slf4j;
 @Tag(name = "Users", description = "사용자 API")
 public class UsersController {
 
-	private final UsersService svc;
-	private final ModelMapper mapper;
+    private final UsersService svc;
+    private final ModelMapper mapper;
 
-	@PostMapping
-	@Operation(operationId = "userCreate", summary = "사용자 생성", description = "사용자를 생성합니다.")
-	public ResponseEntity<UserBaseDto.Get> create(@Validated @RequestBody UserBaseDto.Post dto)
-			throws BadRequestException {
-		User user = svc.add(dto);
+    @PostMapping
+    @Operation(operationId = "userCreate", summary = "사용자 생성", description = "사용자를 생성합니다.")
+    public ResponseEntity<UserBaseDto.Get> create(@Validated @RequestBody UserBaseDto.Post dto)
+            throws BadRequestException {
+        User user = svc.add(dto);
 
-		return ResponseEntity.ok(mapper.map(user, UserBaseDto.Get.class));
-	}
+        return ResponseEntity.ok(mapper.map(user, UserBaseDto.Get.class));
+    }
 
-	@GetMapping("/search")
-	@Operation(operationId = "userSearch", summary = "사용자 검색", description = "사용자를 조건에 따라 검색합니다.")
-	public ResponseEntity<List<UserBaseDto.Get>> search(@RequestParam(value = "email", required = false) String email,
-			@RequestParam(value = "nickname", required = false) String nickname) throws BadRequestException {
-		UserFilter filter = new UserFilter.Builder().email(email).nickname(nickname).build();
+    @GetMapping("/search")
+    @Operation(operationId = "userSearch", summary = "사용자 검색", description = "사용자를 조건에 따라 검색합니다.")
+    public ResponseEntity<List<UserBaseDto.Get>> search(
+            @RequestParam(value = "email", required = false) String email,
+            @RequestParam(value = "nickname", required = false) String nickname)
+            throws BadRequestException {
+        UserFilter filter = new UserFilter.Builder().email(email).nickname(nickname).build();
 
-		if (!filter.filterConditions()) {
-			throw new BadRequestException("사용자 검색 조건이 없습니다.");
-		}
+        if (!filter.filterConditions()) {
+            throw new BadRequestException("사용자 검색 조건이 없습니다.");
+        }
 
-		List<User> users = svc.search(filter);
+        List<User> users = svc.search(filter);
 
-		return ResponseEntity.ok(mapper.map(users, UserBaseDto.Get.class));
-	}
+        return ResponseEntity.ok(mapper.map(users, UserBaseDto.Get.class));
+    }
 }

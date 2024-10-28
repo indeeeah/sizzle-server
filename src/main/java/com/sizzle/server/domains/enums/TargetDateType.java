@@ -8,12 +8,12 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-@Schema(name = "SocialType", description = "소셜 로그인 타입")
-public enum SocialType implements IEnumText {
+@Schema(name = "TargetDateType", description = "목표 날짜 타입")
+public enum TargetDateType implements IEnumText {
 
-	GOOGLE("GOOGLE"),
-	NAVER("NAVER"),
-	KAKAO("KAKAO");
+	DAY("DAY"),
+	MONTH("MONTH"),
+	YEAR("YEAR");
 
 	private final String text;
 }

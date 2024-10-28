@@ -1,10 +1,10 @@
-package com.sizzle.server.domains.users.dtos;
+package com.sizzle.server.domains.dtos;
 
 import java.io.Serializable;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.sizzle.server.domains.users.enums.SocialType;
+import com.sizzle.server.domains.enums.SocialType;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;

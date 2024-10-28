@@ -1,4 +1,4 @@
-package com.sizzle.server.domains.users.filter;
+package com.sizzle.server.domains.filter;
 
 import lombok.AccessLevel;
 import lombok.Getter;

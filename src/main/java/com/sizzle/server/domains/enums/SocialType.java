@@ -1,4 +1,4 @@
-package com.sizzle.server.domains.users.enums;
+package com.sizzle.server.domains.enums;
 
 import com.sizzle.server.enums.IEnumText;
 

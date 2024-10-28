@@ -1,4 +1,4 @@
-package com.sizzle.server.domains.users.entities;
+package com.sizzle.server.domains.entities;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -7,7 +7,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.sizzle.server.domains.users.enums.SocialType;
+import com.sizzle.server.domains.enums.SocialType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -32,7 +32,8 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @DynamicUpdate
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "USERS", indexes = { @Index(name = "idx_name", columnList = "name"),
+@Table(name = "USERS", indexes = {
+		@Index(name = "idx_nickname", columnList = "nickname"),
 		@Index(name = "idx_email", columnList = "email") })
 public class User {
 

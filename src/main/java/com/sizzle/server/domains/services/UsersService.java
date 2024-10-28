@@ -1,13 +1,13 @@
-package com.sizzle.server.domains.users.services;
+package com.sizzle.server.domains.services;
 
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.sizzle.server.domains.users.dtos.UserBaseDto;
-import com.sizzle.server.domains.users.entities.User;
-import com.sizzle.server.domains.users.filter.UserFilter;
-import com.sizzle.server.domains.users.repositories.UsersRepository;
+import com.sizzle.server.domains.dtos.UserBaseDto;
+import com.sizzle.server.domains.entities.User;
+import com.sizzle.server.domains.filter.UserFilter;
+import com.sizzle.server.domains.repositories.UsersRepository;
 import com.sizzle.server.exceptions.BadRequestException;
 import com.sizzle.server.utils.BCryptPassword;
 import com.sizzle.server.utils.ModelMapper;

@@ -1,9 +1,9 @@
-package com.sizzle.server.domains.users.repositories;
+package com.sizzle.server.domains.repositories;
 
 import java.util.List;
 
-import com.sizzle.server.domains.users.entities.User;
-import com.sizzle.server.domains.users.filter.UserFilter;
+import com.sizzle.server.domains.entities.User;
+import com.sizzle.server.domains.filter.UserFilter;
 
 public interface UsersQueryDslRepository {
 	List<User> search(UserFilter filter);

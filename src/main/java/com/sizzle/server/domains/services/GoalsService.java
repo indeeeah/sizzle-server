@@ -1,5 +1,6 @@
 package com.sizzle.server.domains.services;
 
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -68,6 +69,17 @@ public class GoalsService {
         if (dto.getAchivedAt() != null) {
             goal.setAchivedAt(dto.getAchivedAt());
         }
+
+        return repo.save(goal);
+    }
+
+    public Goal delete(UUID id) throws BadRequestException {
+        Goal goal = repo.findById(id);
+        if (goal == null) {
+            throw new BadRequestException("등록되지 않은 목표입니다.");
+        }
+
+        goal.setDeletedAt(LocalDateTime.now());
 
         return repo.save(goal);
     }

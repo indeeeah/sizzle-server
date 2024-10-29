@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -43,6 +44,14 @@ public class GoalsController {
     public ResponseEntity<?> update(@PathVariable UUID id,
             @Validated @RequestBody GoalBaseDto.Update dto) throws BadRequestException {
         svc.update(id, dto);
+
+        return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(operationId = "goalDelete", summary = "목표 삭제", description = "목표를 삭제합니다.")
+    public ResponseEntity<?> delete(@PathVariable UUID id) throws BadRequestException {
+        svc.delete(id);
 
         return ResponseEntity.ok().build();
     }

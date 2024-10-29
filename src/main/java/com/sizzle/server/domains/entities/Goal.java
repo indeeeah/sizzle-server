@@ -79,6 +79,9 @@ public class Goal {
     @Column(name = "target_date_type")
     TargetDateType targetDateType;
 
+    @Column(name = "deleted_at")
+    LocalDateTime deletedAt;
+
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp
     LocalDateTime createdAt;

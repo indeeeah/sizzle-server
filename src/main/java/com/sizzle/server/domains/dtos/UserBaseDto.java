@@ -19,23 +19,11 @@ import lombok.experimental.FieldDefaults;
 @Schema(name = "userBaseDto")
 public class UserBaseDto implements Serializable {
 
-    @NotNull
-    String name;
-
-    @NotNull
-    String email;
-
-    @NotNull
-    String nickname;
-
     @Schema(description = "introduce", nullable = true)
     String introduce;
 
     @Schema(description = "thumbnail path", nullable = true)
     String thumbnailPath;
-
-    @Schema(description = "social type", nullable = true)
-    SocialType social;
 
     @Data
     @NoArgsConstructor
@@ -45,7 +33,19 @@ public class UserBaseDto implements Serializable {
     public static class Post extends UserBaseDto {
 
         @NotNull
+        String name;
+
+        @NotNull
+        String email;
+
+        @NotNull
         String password;
+
+        @NotNull
+        String nickname;
+
+        @Schema(description = "social type", nullable = true)
+        SocialType social;
     }
 
     @Data
@@ -57,5 +57,31 @@ public class UserBaseDto implements Serializable {
 
         @NotNull
         UUID id;
+
+        @NotNull
+        String name;
+
+        @NotNull
+        String email;
+
+        @NotNull
+        String nickname;
+
+        @Schema(description = "social type", nullable = true)
+        SocialType social;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @EqualsAndHashCode(callSuper = true)
+    @FieldDefaults(level = AccessLevel.PRIVATE)
+    @Schema(name = "userUpdateType")
+    public static class Update extends UserBaseDto {
+
+        @Schema(description = "password", nullable = true)
+        String password;
+
+        @Schema(description = "nickname", nullable = true)
+        String nickname;
     }
 }

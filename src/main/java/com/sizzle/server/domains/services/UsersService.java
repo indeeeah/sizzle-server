@@ -1,6 +1,8 @@
 package com.sizzle.server.domains.services;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
@@ -48,5 +50,38 @@ public class UsersService {
         entity.setPassword(BCryptPassword.hash(dto.getPassword()));
 
         return repo.save(entity);
+    }
+
+    public User update(UUID id, UserBaseDto.Update dto) throws BadRequestException {
+        User user = repo.findById(id);
+        if (user == null) {
+            throw new BadRequestException("등록되지 않은 사용자입니다.");
+        }
+
+        if (dto.getNickname() != null) {
+            user.setNickname(dto.getNickname());
+        }
+        if (dto.getPassword() != null) {
+            user.setPassword(BCryptPassword.hash(dto.getPassword()));
+        }
+        if (dto.getIntroduce() != null) {
+            user.setIntroduce(dto.getIntroduce());
+        }
+        if (dto.getThumbnailPath() != null) {
+            user.setThumbnailPath(dto.getThumbnailPath());
+        }
+
+        return repo.save(user);
+    }
+
+    public User delete(UUID id) throws BadRequestException {
+        User user = repo.findById(id);
+        if (user == null) {
+            throw new BadRequestException("등록되지 않은 사용자입니다.");
+        }
+
+        user.setDeletedAt(LocalDateTime.now());
+
+        return repo.save(user);
     }
 }

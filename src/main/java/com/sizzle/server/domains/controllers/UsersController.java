@@ -1,10 +1,14 @@
 package com.sizzle.server.domains.controllers;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -40,6 +44,23 @@ public class UsersController {
         User user = svc.add(dto);
 
         return ResponseEntity.ok(mapper.map(user, UserBaseDto.Get.class));
+    }
+
+    @PatchMapping("/{id}")
+    @Operation(operationId = "userUpdate", summary = "사용자 업데이트", description = "사용자 정보를 업데이트합니다.")
+    public ResponseEntity<UserBaseDto.Get> update(@PathVariable UUID id,
+            @Validated @RequestBody UserBaseDto.Update dto) throws BadRequestException {
+        User user = svc.update(id, dto);
+
+        return ResponseEntity.ok(mapper.map(user, UserBaseDto.Get.class));
+    }
+
+    @DeleteMapping("/{id}")
+    @Operation(operationId = "userDelete", summary = "사용자 삭제", description = "사용자를 삭제합니다.")
+    public ResponseEntity<?> delete(@PathVariable UUID id) throws BadRequestException {
+        svc.delete(id);
+
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/search")

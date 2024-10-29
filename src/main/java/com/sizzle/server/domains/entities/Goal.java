@@ -60,6 +60,9 @@ public class Goal {
     @Column(name = "content")
     String content;
 
+    @Column(name = "photh_path")
+    String photoPath;
+
     @Column(name = "started_at")
     LocalDateTime startedAt;
 

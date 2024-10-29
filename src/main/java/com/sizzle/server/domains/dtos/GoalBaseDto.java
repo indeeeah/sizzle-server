@@ -21,12 +21,6 @@ import lombok.experimental.FieldDefaults;
 @Schema(name = "goalBaseDto")
 public class GoalBaseDto implements Serializable {
 
-    @NotNull
-    UUID userId;
-
-    @NotNull
-    String title;
-
     @Schema(description = "Goal content", nullable = true)
     String content;
 
@@ -48,6 +42,47 @@ public class GoalBaseDto implements Serializable {
 
         @NotNull
         UUID id;
+
+        @NotNull
+        UUID userId;
+
+        @NotNull
+        String title;
+
+        @Schema(description = "photo path", nullable = true)
+        String photoPath;
+
+        @Schema(description = "End date and time", nullable = true)
+        LocalDateTime endedAt;
+
+        @Schema(description = "Achieved date and time", nullable = true)
+        LocalDateTime achivedAt;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @EqualsAndHashCode(callSuper = true)
+    @FieldDefaults(level = AccessLevel.PRIVATE)
+    @Schema(name = "goalPostType")
+    public static class Post extends GoalBaseDto {
+        @NotNull
+        UUID userId;
+
+        @NotNull
+        String title;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @EqualsAndHashCode(callSuper = true)
+    @FieldDefaults(level = AccessLevel.PRIVATE)
+    @Schema(name = "goalUpdateType")
+    public static class Update extends GoalBaseDto {
+        @Schema(description = "title", nullable = true)
+        String title;
+
+        @Schema(description = "photo path", nullable = true)
+        String photoPath;
 
         @Schema(description = "End date and time", nullable = true)
         LocalDateTime endedAt;

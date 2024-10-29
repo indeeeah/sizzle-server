@@ -46,6 +46,15 @@ public class UsersController {
         return ResponseEntity.ok(mapper.map(user, UserBaseDto.Get.class));
     }
 
+    @GetMapping("/{id}")
+    @Operation(operationId = "userGet", summary = "사용자 상세 정보", description = "사용자의 상세 정보를 가져옵니다.")
+    public ResponseEntity<UserBaseDto.Detail> detail(@PathVariable UUID id)
+            throws BadRequestException {
+        UserBaseDto.Detail detail = svc.detail(id);
+
+        return ResponseEntity.ok(detail);
+    }
+
     @PatchMapping("/{id}")
     @Operation(operationId = "userUpdate", summary = "사용자 업데이트", description = "사용자 정보를 업데이트합니다.")
     public ResponseEntity<UserBaseDto.Get> update(@PathVariable UUID id,

@@ -23,11 +23,11 @@ import lombok.extern.slf4j.Slf4j;
 public class GoalsService {
 
     private final GoalsRepository repo;
-    private final UsersRepository userRepo;
+    private final UsersRepository usersRepo;
     private final ModelMapper mapper;
 
     public Goal add(GoalBaseDto.Post dto) throws BadRequestException {
-        User user = userRepo.findById(dto.getUserId());
+        User user = usersRepo.findById(dto.getUserId());
         if (user == null) {
             throw new BadRequestException("등록되지 않은 사용자입니다.");
         }

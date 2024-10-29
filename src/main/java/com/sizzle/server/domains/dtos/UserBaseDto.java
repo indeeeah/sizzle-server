@@ -1,8 +1,10 @@
 package com.sizzle.server.domains.dtos;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.UUID;
 
+import com.sizzle.server.domains.entities.Goal;
 import com.sizzle.server.domains.enums.SocialType;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -83,5 +85,31 @@ public class UserBaseDto implements Serializable {
 
         @Schema(description = "nickname", nullable = true)
         String nickname;
+    }
+
+    @Data
+    @NoArgsConstructor
+    @EqualsAndHashCode(callSuper = true)
+    @FieldDefaults(level = AccessLevel.PRIVATE)
+    @Schema(name = "userDetailType")
+    public static class Detail extends UserBaseDto {
+
+        @NotNull
+        UUID id;
+
+        @NotNull
+        String name;
+
+        @NotNull
+        String email;
+
+        @NotNull
+        String nickname;
+
+        @Schema(description = "social type", nullable = true)
+        SocialType social;
+
+        @Schema(description = "goals", nullable = true)
+        List<Goal> goals;
     }
 }

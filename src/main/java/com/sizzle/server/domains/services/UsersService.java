@@ -7,8 +7,10 @@ import java.util.UUID;
 import org.springframework.stereotype.Service;
 
 import com.sizzle.server.domains.dtos.UserBaseDto;
+import com.sizzle.server.domains.entities.Goal;
 import com.sizzle.server.domains.entities.User;
 import com.sizzle.server.domains.filter.UserFilter;
+import com.sizzle.server.domains.repositories.GoalsRepository;
 import com.sizzle.server.domains.repositories.UsersRepository;
 import com.sizzle.server.exceptions.BadRequestException;
 import com.sizzle.server.utils.BCryptPassword;
@@ -24,11 +26,8 @@ import lombok.extern.slf4j.Slf4j;
 public class UsersService {
 
     private final UsersRepository repo;
+    private final GoalsRepository goalsRepo;
     private final ModelMapper mapper;
-
-    public List<User> search(UserFilter filter) throws BadRequestException {
-        return repo.search(filter);
-    }
 
     public User add(UserBaseDto.Post dto) throws BadRequestException {
         String email = dto.getEmail();
@@ -50,6 +49,20 @@ public class UsersService {
         entity.setPassword(BCryptPassword.hash(dto.getPassword()));
 
         return repo.save(entity);
+    }
+
+    public UserBaseDto.Detail detail(UUID id) throws BadRequestException {
+        User user = repo.findById(id);
+        if (user == null) {
+            throw new BadRequestException("등록되지 않은 사용자입니다.");
+        }
+
+        List<Goal> goals = goalsRepo.findByUserId(id);
+
+        UserBaseDto.Detail detail = mapper.map(user, UserBaseDto.Detail.class);
+        detail.setGoals(goals);
+
+        return detail;
     }
 
     public User update(UUID id, UserBaseDto.Update dto) throws BadRequestException {
@@ -83,5 +96,9 @@ public class UsersService {
         user.setDeletedAt(LocalDateTime.now());
 
         return repo.save(user);
+    }
+
+    public List<User> search(UserFilter filter) throws BadRequestException {
+        return repo.search(filter);
     }
 }

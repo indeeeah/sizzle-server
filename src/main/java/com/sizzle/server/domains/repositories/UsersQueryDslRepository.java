@@ -7,11 +7,11 @@ import com.sizzle.server.domains.entities.User;
 import com.sizzle.server.domains.filter.UserFilter;
 
 public interface UsersQueryDslRepository {
-	List<User> search(UserFilter filter);
+    List<User> search(UserFilter filter);
 
-	User findById(UUID id);
+    User findById(UUID id);
 
-	User findByEmail(String email);
+    User findByEmail(String email);
 
-	User findByNickname(String nickname);
+    User findByNickname(String nickname);
 }

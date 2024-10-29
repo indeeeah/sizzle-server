@@ -8,8 +8,8 @@ import org.springframework.boot.autoconfigure.domain.EntityScan;
 @EntityScan(basePackages = "com.sizzle.server.domains")
 public class SizzleServerApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(SizzleServerApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(SizzleServerApplication.class, args);
+    }
 
 }

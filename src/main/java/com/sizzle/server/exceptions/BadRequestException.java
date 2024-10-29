@@ -4,10 +4,10 @@ import java.io.Serial;
 
 public class BadRequestException extends Exception {
 
-	@Serial
-	private static final long serialVersionUid = 1L;
+    @Serial
+    private static final long serialVersionUid = 1L;
 
-	public BadRequestException(String message) {
-		super(message);
-	}
+    public BadRequestException(String message) {
+        super(message);
+    }
 }

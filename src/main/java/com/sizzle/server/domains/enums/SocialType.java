@@ -11,9 +11,7 @@ import lombok.RequiredArgsConstructor;
 @Schema(name = "SocialType", description = "소셜 로그인 타입")
 public enum SocialType implements IEnumText {
 
-	GOOGLE("GOOGLE"),
-	NAVER("NAVER"),
-	KAKAO("KAKAO");
+    GOOGLE("GOOGLE"), NAVER("NAVER"), KAKAO("KAKAO");
 
-	private final String text;
+    private final String text;
 }

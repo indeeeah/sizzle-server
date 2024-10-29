@@ -21,32 +21,32 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class UsersService {
 
-	private final UsersRepository repo;
-	private final ModelMapper mapper;
+    private final UsersRepository repo;
+    private final ModelMapper mapper;
 
-	public List<User> search(UserFilter filter) throws BadRequestException {
-		return repo.search(filter);
-	}
+    public List<User> search(UserFilter filter) throws BadRequestException {
+        return repo.search(filter);
+    }
 
-	public User add(UserBaseDto.Post dto) throws BadRequestException {
-		String email = dto.getEmail();
-		String nickname = dto.getNickname();
+    public User add(UserBaseDto.Post dto) throws BadRequestException {
+        String email = dto.getEmail();
+        String nickname = dto.getNickname();
 
-		User registeredEmail = repo.findByEmail(email);
-		if (registeredEmail != null) {
-			throw new BadRequestException("이미 등록된 이메일입니다.\n기존에 등록된 이메일로 사용해주세요.");
-		}
+        User registeredEmail = repo.findByEmail(email);
+        if (registeredEmail != null) {
+            throw new BadRequestException("이미 등록된 이메일입니다.\n기존에 등록된 이메일로 사용해주세요.");
+        }
 
-		User registeredNickname = repo.findByNickname(nickname);
-		if (registeredNickname != null) {
-			throw new BadRequestException("이미 등록된 닉네임입니다.\n다른 닉네임을 사용해주세요.");
-		}
+        User registeredNickname = repo.findByNickname(nickname);
+        if (registeredNickname != null) {
+            throw new BadRequestException("이미 등록된 닉네임입니다.\n다른 닉네임을 사용해주세요.");
+        }
 
-		User entity = mapper.map(dto, User.class);
+        User entity = mapper.map(dto, User.class);
 
-		entity.setId(UuidV7.randomUuid());
-		entity.setPassword(BCryptPassword.hash(dto.getPassword()));
+        entity.setId(UuidV7.randomUuid());
+        entity.setPassword(BCryptPassword.hash(dto.getPassword()));
 
-		return repo.save(entity);
-	}
+        return repo.save(entity);
+    }
 }

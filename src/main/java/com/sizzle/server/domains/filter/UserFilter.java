@@ -9,47 +9,47 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserFilter {
 
-	String email;
+    String email;
 
-	String nickname;
+    String nickname;
 
-	private UserFilter(Builder builder) {
-		this.email = builder.email;
-		this.nickname = builder.nickname;
-	}
+    private UserFilter(Builder builder) {
+        this.email = builder.email;
+        this.nickname = builder.nickname;
+    }
 
-	public boolean filterEmail() {
-		return this.email != null;
-	}
+    public boolean filterEmail() {
+        return this.email != null;
+    }
 
-	public boolean filterNickname() {
-		return this.nickname != null;
-	}
+    public boolean filterNickname() {
+        return this.nickname != null;
+    }
 
-	public boolean filterConditions() {
-		return this.email != null || this.nickname != null;
-	}
+    public boolean filterConditions() {
+        return this.email != null || this.nickname != null;
+    }
 
-	@NoArgsConstructor
-	@FieldDefaults(level = AccessLevel.PRIVATE)
-	public static class Builder {
+    @NoArgsConstructor
+    @FieldDefaults(level = AccessLevel.PRIVATE)
+    public static class Builder {
 
-		String email;
+        String email;
 
-		String nickname;
+        String nickname;
 
-		public Builder email(String email) {
-			this.email = email;
-			return this;
-		}
+        public Builder email(String email) {
+            this.email = email;
+            return this;
+        }
 
-		public Builder nickname(String nickname) {
-			this.nickname = nickname;
-			return this;
-		}
+        public Builder nickname(String nickname) {
+            this.nickname = nickname;
+            return this;
+        }
 
-		public UserFilter build() {
-			return new UserFilter(this);
-		}
-	}
+        public UserFilter build() {
+            return new UserFilter(this);
+        }
+    }
 }

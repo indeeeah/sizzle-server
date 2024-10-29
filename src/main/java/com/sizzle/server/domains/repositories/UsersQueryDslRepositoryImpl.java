@@ -13,56 +13,56 @@ import com.sizzle.server.domains.entities.User;
 import com.sizzle.server.domains.filter.UserFilter;
 
 @Repository
-class UsersQueryDslRepositoryImpl extends QuerydslRepositorySupport implements
-		UsersQueryDslRepository {
+class UsersQueryDslRepositoryImpl extends QuerydslRepositorySupport
+        implements UsersQueryDslRepository {
 
-	public UsersQueryDslRepositoryImpl() {
-		super(User.class);
-	}
+    public UsersQueryDslRepositoryImpl() {
+        super(User.class);
+    }
 
-	@Override
-	public List<User> search(UserFilter filter) {
-		QUser entity = QUser.user;
+    @Override
+    public List<User> search(UserFilter filter) {
+        QUser entity = QUser.user;
 
-		BooleanBuilder where = new BooleanBuilder();
-		if (filter.filterEmail()) {
-			where.and(entity.email.eq(filter.getEmail()));
-		}
-		if (filter.filterNickname()) {
-			where.and(entity.nickname.eq(filter.getNickname()));
-		}
+        BooleanBuilder where = new BooleanBuilder();
+        if (filter.filterEmail()) {
+            where.and(entity.email.eq(filter.getEmail()));
+        }
+        if (filter.filterNickname()) {
+            where.and(entity.nickname.eq(filter.getNickname()));
+        }
 
-		JPQLQuery<User> userQuery = from(entity).where(where);
+        JPQLQuery<User> userQuery = from(entity).where(where);
 
-		List<User> users = userQuery.fetch();
+        List<User> users = userQuery.fetch();
 
-		return users;
-	}
+        return users;
+    }
 
-	@Override
-	public User findById(UUID id) {
-		QUser entity = QUser.user;
+    @Override
+    public User findById(UUID id) {
+        QUser entity = QUser.user;
 
-		User user = from(entity).where(entity.id.eq(id)).fetchOne();
+        User user = from(entity).where(entity.id.eq(id)).fetchOne();
 
-		return user;
-	}
+        return user;
+    }
 
-	@Override
-	public User findByEmail(String email) {
-		QUser entity = QUser.user;
+    @Override
+    public User findByEmail(String email) {
+        QUser entity = QUser.user;
 
-		User user = from(entity).where(entity.email.eq(email)).fetchFirst();
+        User user = from(entity).where(entity.email.eq(email)).fetchFirst();
 
-		return user;
-	}
+        return user;
+    }
 
-	@Override
-	public User findByNickname(String nickname) {
-		QUser entity = QUser.user;
+    @Override
+    public User findByNickname(String nickname) {
+        QUser entity = QUser.user;
 
-		User user = from(entity).where(entity.nickname.eq(nickname)).fetchFirst();
+        User user = from(entity).where(entity.nickname.eq(nickname)).fetchFirst();
 
-		return user;
-	}
+        return user;
+    }
 }

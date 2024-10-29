@@ -32,46 +32,45 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @DynamicUpdate
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "USERS", indexes = {
-		@Index(name = "idx_nickname", columnList = "nickname"),
-		@Index(name = "idx_email", columnList = "email") })
+@Table(name = "USERS", indexes = {@Index(name = "idx_nickname", columnList = "nickname"),
+        @Index(name = "idx_email", columnList = "email")})
 public class User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.UUID)
-	@Column(name = "id")
-	UUID id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(name = "id")
+    UUID id;
 
-	@Column(name = "name", nullable = false)
-	String name;
+    @Column(name = "name", nullable = false)
+    String name;
 
-	@Column(name = "email", nullable = false)
-	String email;
+    @Column(name = "email", nullable = false)
+    String email;
 
-	@Column(name = "password", nullable = false)
-	String password;
+    @Column(name = "password", nullable = false)
+    String password;
 
-	@Column(name = "nickname", nullable = false)
-	String nickname;
+    @Column(name = "nickname", nullable = false)
+    String nickname;
 
-	@Column(name = "thumbnail_path")
-	String thumbnailPath;
+    @Column(name = "thumbnail_path")
+    String thumbnailPath;
 
-	@Column(name = "introduce")
-	String introduce;
+    @Column(name = "introduce")
+    String introduce;
 
-	@Enumerated(EnumType.STRING)
-	@Column(name = "social")
-	SocialType social;
+    @Enumerated(EnumType.STRING)
+    @Column(name = "social")
+    SocialType social;
 
-	@Column(name = "deleted_at")
-	LocalDateTime deletedAt;
+    @Column(name = "deleted_at")
+    LocalDateTime deletedAt;
 
-	@Column(name = "created_at", nullable = false, updatable = false)
-	@CreationTimestamp
-	LocalDateTime createdAt;
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @CreationTimestamp
+    LocalDateTime createdAt;
 
-	@Column(name = "updated_at")
-	@UpdateTimestamp
-	LocalDateTime updatedAt;
+    @Column(name = "updated_at")
+    @UpdateTimestamp
+    LocalDateTime updatedAt;
 }

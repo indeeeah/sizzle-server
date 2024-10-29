@@ -11,9 +11,7 @@ import lombok.RequiredArgsConstructor;
 @Schema(name = "TargetDateType", description = "목표 날짜 타입")
 public enum TargetDateType implements IEnumText {
 
-	DAY("DAY"),
-	MONTH("MONTH"),
-	YEAR("YEAR");
+    DAY("DAY"), MONTH("MONTH"), YEAR("YEAR");
 
-	private final String text;
+    private final String text;
 }

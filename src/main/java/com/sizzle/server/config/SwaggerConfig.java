@@ -9,12 +9,12 @@ import io.swagger.v3.oas.models.info.Info;
 
 @Configuration
 public class SwaggerConfig {
-	@Bean
-	public OpenAPI openApi() {
-		return new OpenAPI().components(new Components()).info(apiInfo());
-	}
+    @Bean
+    public OpenAPI openApi() {
+        return new OpenAPI().components(new Components()).info(apiInfo());
+    }
 
-	private Info apiInfo() {
-		return new Info().title("Sizzle Server").description("Sizzle 서버 API 문서").version("1.0.0");
-	}
+    private Info apiInfo() {
+        return new Info().title("Sizzle Server").description("Sizzle 서버 API 문서").version("1.0.0");
+    }
 }

@@ -1,15 +1,21 @@
 package com.sizzle.server.domains.services;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sizzle.server.domains.dtos.UserBaseDto;
+import com.sizzle.server.domains.entities.Category;
 import com.sizzle.server.domains.entities.Goal;
 import com.sizzle.server.domains.entities.User;
 import com.sizzle.server.domains.filter.UserFilter;
+import com.sizzle.server.domains.repositories.CategoriesRepository;
 import com.sizzle.server.domains.repositories.GoalsRepository;
 import com.sizzle.server.domains.repositories.UsersRepository;
 import com.sizzle.server.exceptions.BadRequestException;
@@ -17,6 +23,7 @@ import com.sizzle.server.utils.BCryptPassword;
 import com.sizzle.server.utils.ModelMapper;
 import com.sizzle.server.utils.UuidV7;
 
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,7 +34,9 @@ public class UsersService {
 
     private final UsersRepository repo;
     private final GoalsRepository goalsRepo;
+    private final CategoriesRepository categoriesRepo;
     private final ModelMapper mapper;
+    private final ObjectMapper objectMapper;
 
     public User add(UserBaseDto.Post dto) throws BadRequestException {
         String email = dto.getEmail();
@@ -48,7 +57,36 @@ public class UsersService {
         entity.setId(UuidV7.randomUuid());
         entity.setPassword(BCryptPassword.hash(dto.getPassword()));
 
-        return repo.save(entity);
+        return create(entity);
+    }
+
+    @Transactional
+    private User create(User user) throws BadRequestException {
+        InputStream inputStream = getClass().getResourceAsStream("/templates/categories.json");
+
+        if (inputStream == null) {
+            return repo.save(user);
+        }
+
+        User createdUser = repo.save(user);
+
+        try {
+            List<Category> categories =
+                    objectMapper.readValue(inputStream, new TypeReference<List<Category>>() {
+
+                    });
+
+            categories.forEach(category -> {
+                category.setId(UuidV7.randomUuid());
+                category.setUserId(createdUser.getId());
+            });
+
+            categoriesRepo.saveAll(categories);
+        } catch (IOException e) {
+            return null;
+        }
+
+        return createdUser;
     }
 
     public UserBaseDto.Detail detail(UUID id) throws BadRequestException {

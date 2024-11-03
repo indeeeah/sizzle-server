@@ -1,6 +1,5 @@
 package com.sizzle.server.domains.entities;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
@@ -9,13 +8,10 @@ import org.hibernate.annotations.DynamicUpdate;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sizzle.server.domains.enums.TargetDateType;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.ConstraintMode;
 import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.ForeignKey;
 import jakarta.persistence.GeneratedValue;
@@ -39,8 +35,9 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @DynamicUpdate
 @FieldDefaults(level = AccessLevel.PRIVATE)
-@Table(name = "GOALS", indexes = {@Index(name = "idx_goal_user_id", columnList = "user_id")})
-public class Goal {
+@Table(name = "CATEGORIES",
+        indexes = {@Index(name = "idx_category_user_id", columnList = "user_id")})
+public class Category {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -56,30 +53,14 @@ public class Goal {
     @JsonIgnore
     private User user;
 
-    @Column(name = "title", nullable = false)
-    String title;
+    @Column(name = "name", nullable = false)
+    String name;
 
-    @Column(name = "content")
-    String content;
+    @Column(name = "color")
+    String color;
 
-    @Column(name = "photh_path")
-    String photoPath;
-
-    @Column(name = "started_at")
-    LocalDateTime startedAt;
-
-    @Column(name = "ended_at")
-    LocalDateTime endedAt;
-
-    @Column(name = "achived_at")
-    LocalDateTime achivedAt;
-
-    @Column(name = "target_date")
-    LocalDate targetDate;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "target_date_type")
-    TargetDateType targetDateType;
+    @Column(name = "parent_id")
+    UUID parentId;
 
     @Column(name = "deleted_at")
     LocalDateTime deletedAt;

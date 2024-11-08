@@ -21,12 +21,6 @@ import lombok.experimental.FieldDefaults;
 @Schema(name = "userBaseDto")
 public class UserBaseDto implements Serializable {
 
-    @Schema(description = "introduce", nullable = true)
-    String introduce;
-
-    @Schema(description = "thumbnail path", nullable = true)
-    String thumbnailPath;
-
     @Data
     @NoArgsConstructor
     @EqualsAndHashCode(callSuper = true)
@@ -46,7 +40,7 @@ public class UserBaseDto implements Serializable {
         @NotNull
         String nickname;
 
-        @Schema(description = "social type", nullable = true)
+        @Schema(nullable = true)
         SocialType social;
     }
 
@@ -69,8 +63,14 @@ public class UserBaseDto implements Serializable {
         @NotNull
         String nickname;
 
-        @Schema(description = "social type", nullable = true)
+        @Schema(nullable = true)
         SocialType social;
+
+        @Schema(nullable = true)
+        String introduce;
+
+        @Schema(nullable = true)
+        String thumbnailPath;
     }
 
     @Data
@@ -80,11 +80,17 @@ public class UserBaseDto implements Serializable {
     @Schema(name = "userUpdateType")
     public static class Update extends UserBaseDto {
 
-        @Schema(description = "password", nullable = true)
+        @Schema(nullable = true)
         String password;
 
-        @Schema(description = "nickname", nullable = true)
+        @Schema(nullable = true)
         String nickname;
+
+        @Schema(nullable = true)
+        String introduce;
+
+        @Schema(nullable = true)
+        String thumbnailPath;
     }
 
     @Data
@@ -106,10 +112,16 @@ public class UserBaseDto implements Serializable {
         @NotNull
         String nickname;
 
-        @Schema(description = "social type", nullable = true)
+        @Schema(nullable = true)
         SocialType social;
 
-        @Schema(description = "goals", nullable = true)
+        @Schema(nullable = true)
         List<Goal> goals;
+
+        @Schema(nullable = true)
+        String introduce;
+
+        @Schema(nullable = true)
+        String thumbnailPath;
     }
 }

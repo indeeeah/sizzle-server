@@ -8,10 +8,10 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-@Schema(name = "TargetDateType", description = "목표 날짜 타입")
-public enum TargetDateType implements IEnumText {
+@Schema(name = "DayType", description = "목표 요일 타입")
+public enum DayType implements IEnumText {
 
-    DAY("DAY"), MONTH("MONTH"), YEAR("YEAR");
+    MON("MON"), TUE("TUE"), WED("WED"), THU("THU"), FRI("FRI"), SAT("SAT"), SUN("SUN");
 
     private final String text;
 }

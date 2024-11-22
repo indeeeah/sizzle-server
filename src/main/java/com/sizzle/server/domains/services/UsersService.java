@@ -38,7 +38,7 @@ public class UsersService {
     private final ModelMapper mapper;
     private final ObjectMapper objectMapper;
 
-    public User add(UserBaseDto.Post dto) throws BadRequestException {
+    public User create(UserBaseDto.Post dto) throws BadRequestException {
         String email = dto.getEmail();
         String nickname = dto.getNickname();
 
@@ -57,11 +57,11 @@ public class UsersService {
         entity.setId(UuidV7.randomUuid());
         entity.setPassword(BCryptPassword.hash(dto.getPassword()));
 
-        return create(entity);
+        return createUser(entity);
     }
 
     @Transactional
-    private User create(User user) throws BadRequestException {
+    private User createUser(User user) throws BadRequestException {
         InputStream inputStream = getClass().getResourceAsStream("/templates/categories.json");
 
         if (inputStream == null) {

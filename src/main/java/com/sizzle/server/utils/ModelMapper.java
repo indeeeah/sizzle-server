@@ -14,7 +14,7 @@ public class ModelMapper {
 
     public ModelMapper() {
         this.orgModelMapper = new org.modelmapper.ModelMapper();
-        orgModelMapper.getConfiguration().setAmbiguityIgnored(false);
+        orgModelMapper.getConfiguration().setAmbiguityIgnored(true);
         orgModelMapper.getConfiguration().setSkipNullEnabled(true);
     }
 

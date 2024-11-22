@@ -49,11 +49,11 @@ public class WebSecurityConfig {
                         exception -> exception.authenticationEntryPoint(unauthorizedHandler))
                 .sessionManagement(
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(
-                        requests -> requests.requestMatchers("/swagger-ui/**", "/v3/api-docs/**")
-                                .permitAll().requestMatchers("/users/**").permitAll()
-                                .requestMatchers("/goals/**").permitAll().requestMatchers("/error")
-                                .permitAll().anyRequest().authenticated());
+                .authorizeHttpRequests(requests -> requests
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/users/**").permitAll().requestMatchers("/goals/**")
+                        .permitAll().requestMatchers("/plans/**").permitAll()
+                        .requestMatchers("/error").permitAll().anyRequest().authenticated());
 
         return http.build();
     }

@@ -34,7 +34,7 @@ public class GoalsController {
     @Operation(operationId = "goalCreate", summary = "목표 생성", description = "목표를 생성합니다.")
     public ResponseEntity<?> create(@Validated @RequestBody GoalBaseDto.Post dto)
             throws BadRequestException {
-        svc.add(dto);
+        svc.create(dto);
 
         return ResponseEntity.ok().build();
     }

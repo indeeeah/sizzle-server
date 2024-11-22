@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-import com.sizzle.server.domains.enums.TargetDateType;
+import com.sizzle.server.domains.enums.DateType;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotNull;
@@ -21,17 +21,17 @@ import lombok.experimental.FieldDefaults;
 @Schema(name = "goalBaseDto")
 public class GoalBaseDto implements Serializable {
 
-    @Schema(description = "Goal content", nullable = true)
+    @Schema(nullable = true)
     String content;
 
-    @Schema(description = "Start date and time", nullable = true)
+    @Schema(nullable = true)
     LocalDateTime startedAt;
 
-    @Schema(description = "Target date", nullable = true)
+    @Schema(nullable = true)
     LocalDate targetDate;
 
-    @Schema(description = "Target date type", nullable = true)
-    TargetDateType targetDateType;
+    @Schema(nullable = true)
+    DateType targetDateType;
 
     @Data
     @NoArgsConstructor
@@ -49,13 +49,13 @@ public class GoalBaseDto implements Serializable {
         @NotNull
         String title;
 
-        @Schema(description = "photo path", nullable = true)
+        @Schema(nullable = true)
         String photoPath;
 
-        @Schema(description = "End date and time", nullable = true)
+        @Schema(nullable = true)
         LocalDateTime endedAt;
 
-        @Schema(description = "Achieved date and time", nullable = true)
+        @Schema(nullable = true)
         LocalDateTime achivedAt;
     }
 
@@ -78,16 +78,16 @@ public class GoalBaseDto implements Serializable {
     @FieldDefaults(level = AccessLevel.PRIVATE)
     @Schema(name = "goalUpdateType")
     public static class Update extends GoalBaseDto {
-        @Schema(description = "title", nullable = true)
+        @Schema(nullable = true)
         String title;
 
-        @Schema(description = "photo path", nullable = true)
+        @Schema(nullable = true)
         String photoPath;
 
-        @Schema(description = "End date and time", nullable = true)
+        @Schema(nullable = true)
         LocalDateTime endedAt;
 
-        @Schema(description = "Achieved date and time", nullable = true)
+        @Schema(nullable = true)
         LocalDateTime achivedAt;
     }
 }

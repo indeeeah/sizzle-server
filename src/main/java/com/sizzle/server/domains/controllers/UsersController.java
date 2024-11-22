@@ -41,7 +41,7 @@ public class UsersController {
     @Operation(operationId = "userCreate", summary = "사용자 생성", description = "사용자를 생성합니다.")
     public ResponseEntity<UserBaseDto.Get> create(@Validated @RequestBody UserBaseDto.Post dto)
             throws BadRequestException {
-        User user = svc.add(dto);
+        User user = svc.create(dto);
 
         return ResponseEntity.ok(mapper.map(user, UserBaseDto.Get.class));
     }

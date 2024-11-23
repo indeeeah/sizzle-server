@@ -32,7 +32,7 @@ public class PlansController {
 
     @PostMapping
     @Operation(operationId = "planCreate", summary = "일정 생성", description = "일정을 생성합니다.")
-    public ResponseEntity<?> create(@Validated @RequestBody PlanBaseDto.Post dto)
+    public ResponseEntity<List<Plan>> create(@Validated @RequestBody PlanBaseDto.Post dto)
             throws BadRequestException {
         List<Plan> plans = svc.create(dto);
 

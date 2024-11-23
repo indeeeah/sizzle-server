@@ -13,8 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sizzle.server.domains.dtos.GoalBaseDto;
+import com.sizzle.server.domains.entities.Goal;
 import com.sizzle.server.domains.services.GoalsService;
 import com.sizzle.server.exceptions.BadRequestException;
+import com.sizzle.server.utils.ModelMapper;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -29,23 +31,24 @@ import lombok.extern.slf4j.Slf4j;
 public class GoalsController {
 
     private final GoalsService svc;
+    private final ModelMapper mapper;
 
     @PostMapping
     @Operation(operationId = "goalCreate", summary = "목표 생성", description = "목표를 생성합니다.")
-    public ResponseEntity<?> create(@Validated @RequestBody GoalBaseDto.Post dto)
+    public ResponseEntity<Goal> create(@Validated @RequestBody GoalBaseDto.Post dto)
             throws BadRequestException {
-        svc.create(dto);
+        Goal goal = svc.create(dto);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(mapper.map(goal, Goal.class));
     }
 
     @PatchMapping("/{id}")
     @Operation(operationId = "goalUpdate", summary = "목표 업데이트", description = "목표를 업데이트합니다.")
-    public ResponseEntity<?> update(@PathVariable UUID id,
+    public ResponseEntity<Goal> update(@PathVariable UUID id,
             @Validated @RequestBody GoalBaseDto.Update dto) throws BadRequestException {
-        svc.update(id, dto);
+        Goal goal = svc.update(id, dto);
 
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok(mapper.map(goal, Goal.class));
     }
 
     @DeleteMapping("/{id}")

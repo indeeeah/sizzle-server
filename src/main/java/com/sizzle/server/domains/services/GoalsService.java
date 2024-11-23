@@ -1,6 +1,7 @@
 package com.sizzle.server.domains.services;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.stereotype.Service;
@@ -37,6 +38,17 @@ public class GoalsService {
         entity.setId(UuidV7.randomUuid());
 
         return repo.save(entity);
+    }
+
+    public List<Goal> findByUserId(UUID userId) throws BadRequestException {
+        User user = usersRepo.findById(userId);
+        if (user == null) {
+            throw new BadRequestException("등록되지 않은 사용자입니다.");
+        }
+
+        List<Goal> goals = repo.findByUserId(userId);
+
+        return goals;
     }
 
     public Goal update(UUID id, GoalBaseDto.Update dto) throws BadRequestException {

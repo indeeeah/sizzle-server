@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
+import com.querydsl.jpa.JPQLQuery;
 import com.sizzle.server.domains.entities.Goal;
 import com.sizzle.server.domains.entities.QGoal;
 
@@ -30,7 +31,9 @@ class GoalsQueryDslRepositoryImpl extends QuerydslRepositorySupport
     public List<Goal> findByUserId(UUID userId) {
         QGoal entity = QGoal.goal;
 
-        List<Goal> goals = from(entity).where(entity.userId.eq(userId)).fetch();
+        JPQLQuery<Goal> goalQuery = from(entity).where(entity.userId.eq(userId)).where(entity.deletedAt.isNull());
+
+        List<Goal> goals = goalQuery.fetch();
 
         return goals;
     }

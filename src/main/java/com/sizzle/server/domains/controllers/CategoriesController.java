@@ -47,13 +47,13 @@ public class CategoriesController {
 
     @GetMapping
     @Operation(operationId = "categoriesGet", summary = "카테고리 목록", description = "카테고리 목록을 반환합니다.")
-    public ResponseEntity<List<Category>> findAll(@RequestParam(value = "userId", required = true) UUID userId)
+    public ResponseEntity<List<Category>> findByUserId(@RequestParam(value = "userId", required = true) UUID userId)
             throws BadRequestException {
         if (userId == null) {
             throw new BadRequestException("userId가 필요합니다.");
         }
 
-        List<Category> categories = svc.findAll(userId);
+        List<Category> categories = svc.findByUserId(userId);
 
         return ResponseEntity.ok(mapper.map(categories, Category.class));
     }

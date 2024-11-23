@@ -49,7 +49,7 @@ public class CategoriesService {
         return repo.save(entity);
     }
 
-    public List<Category> findAll(UUID userId) throws BadRequestException {
+    public List<Category> findByUserId(UUID userId) throws BadRequestException {
         User user = usersRepo.findById(userId);
         if (user == null) {
             throw new BadRequestException("등록되지 않은 사용자입니다.");

@@ -59,4 +59,13 @@ public class PlansService {
 
         return repo.findByUserId(userId);
     }
+
+    public Plan detail(UUID id) throws BadRequestException {
+        Plan plan = repo.findById(id);
+        if (plan == null) {
+            throw new BadRequestException("등록되지 않은 일정입니다.");
+        }
+
+        return plan;
+    }
 }

@@ -16,6 +16,14 @@ public class PlansQueryDslRepositoryImpl extends QuerydslRepositorySupport
         super(Plan.class);
     }
 
+    public Plan findById(UUID id) {
+        QPlan entity = QPlan.plan;
+
+        Plan plan = from(entity).where(entity.id.eq(id)).fetchOne();
+
+        return plan;
+    }
+
     public List<Plan> findByUserId(UUID userId) {
         QPlan entity = QPlan.plan;
 

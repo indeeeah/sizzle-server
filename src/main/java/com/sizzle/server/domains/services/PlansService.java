@@ -28,9 +28,7 @@ public class PlansService {
     private final ModelMapper mapper;
 
     public List<Plan> create(PlanBaseDto.Post dto) throws BadRequestException {
-        UUID userId = dto.getUserId();
-
-        User user = usersRepo.findById(userId);
+        User user = usersRepo.findById(dto.getUserId());
         if (user == null) {
             throw new BadRequestException("등록되지 않은 사용자입니다.");
         }
@@ -51,5 +49,14 @@ public class PlansService {
         });
 
         return repo.saveAll(plans);
+    }
+
+    public List<Plan> findByUserId(UUID userId) throws BadRequestException {
+        User user = usersRepo.findById(userId);
+        if (user == null) {
+            throw new BadRequestException("등록되지 않은 사용자입니다.");
+        }
+
+        return repo.findByUserId(userId);
     }
 }

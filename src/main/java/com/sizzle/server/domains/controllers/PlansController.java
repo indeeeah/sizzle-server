@@ -1,12 +1,15 @@
 package com.sizzle.server.domains.controllers;
 
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sizzle.server.domains.dtos.PlanBaseDto;
@@ -35,6 +38,20 @@ public class PlansController {
     public ResponseEntity<List<Plan>> create(@Validated @RequestBody PlanBaseDto.Post dto)
             throws BadRequestException {
         List<Plan> plans = svc.create(dto);
+
+        return ResponseEntity.ok(mapper.map(plans, Plan.class));
+    }
+
+    @GetMapping
+    @Operation(operationId = "plansGet", summary = "일정 목록", description = "일정 목록을 반환합니다.")
+    public ResponseEntity<List<Plan>> findByUserId(
+            @RequestParam(value = "useId", required = true) UUID userId)
+            throws BadRequestException {
+        if (userId == null) {
+            throw new BadRequestException("userId가 필요합니다.");
+        }
+
+        List<Plan> plans = svc.findByUserId(userId);
 
         return ResponseEntity.ok(mapper.map(plans, Plan.class));
     }
